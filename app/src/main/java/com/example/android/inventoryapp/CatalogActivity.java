@@ -62,7 +62,7 @@ public class CatalogActivity extends AppCompatActivity {
                 String supplierName = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_NAME));
                 String supplierPhone = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER));
 
-                displayView.append("\n" + name + " - " + price + " " + getString(R.string.unit_product_price) +  " - " + quantity + " " + getString(R.string.unit_product_quantity) +  " - " + " - " + supplierName + " - " + supplierPhone);
+                displayView.append("\n" + name + " - " + price + getString(R.string.unit_product_price) +  " - " + quantity + " " + getString(R.string.unit_product_quantity) + " - " + supplierName + " - " + supplierPhone);
             }
         } finally {
             cursor.close();

@@ -59,8 +59,17 @@ public class EditorActivity extends AppCompatActivity {
 
     private void insertProduct() {
         String name = mNameEditText.getText().toString().trim();
-        Double price = Double.parseDouble(mPriceEditText.getText().toString().trim());
-        int quantity = Integer.parseInt(mQuantityEditText.getText().toString().trim());
+        Double price = 0.0;
+        try {
+            price = Double.parseDouble(mPriceEditText.getText().toString().trim());
+        } catch (NumberFormatException e) {
+        }
+        int quantity = 0;
+        try {
+            quantity = Integer.parseInt(mQuantityEditText.getText().toString().trim());
+        } catch (NumberFormatException e) {
+
+        }
         String supplierName = mSupplierNameEditText.getText().toString().trim();
         String supplierPhone = mSupplierPhoneEditText.getText().toString().trim();
 
