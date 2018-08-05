@@ -123,7 +123,6 @@ public class ProductProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
         }
-        return 0;
     }
 
     @Override
