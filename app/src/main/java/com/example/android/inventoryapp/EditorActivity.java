@@ -2,6 +2,7 @@ package com.example.android.inventoryapp;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,23 +60,10 @@ public class EditorActivity extends AppCompatActivity {
 
     private void insertProduct() {
         String name = mNameEditText.getText().toString().trim();
-        Double price = 0.0;
-        try {
-            price = Double.parseDouble(mPriceEditText.getText().toString().trim());
-        } catch (NumberFormatException e) {
-        }
-        int quantity = 0;
-        try {
-            quantity = Integer.parseInt(mQuantityEditText.getText().toString().trim());
-        } catch (NumberFormatException e) {
-
-        }
+        Double price = Double.parseDouble(mPriceEditText.getText().toString().trim());
+        int quantity = Integer.parseInt(mQuantityEditText.getText().toString().trim());
         String supplierName = mSupplierNameEditText.getText().toString().trim();
         String supplierPhone = mSupplierPhoneEditText.getText().toString().trim();
-
-        ProductDbHelper mDbHelper = new ProductDbHelper(this);
-
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
@@ -84,12 +72,12 @@ public class EditorActivity extends AppCompatActivity {
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, supplierName);
         values.put(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhone);
 
-        long newRowId = db.insert(ProductEntry.TABLE_NAME, null, values);
+        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
 
-        if (newRowId == -1) {
-            Toast.makeText(this, "Error with saving product", Toast.LENGTH_SHORT).show();
+        if (newUri == null) {
+            Toast.makeText(this, getString(R.string.editor_insert_product_failed), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Product was successfully saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.editor_insert_product_successful), Toast.LENGTH_SHORT).show();
         }
     }
 }

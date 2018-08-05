@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
+
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
 
@@ -18,6 +20,8 @@ public class ProductProvider extends ContentProvider {
 
     private static final int PRODUCTS = 100;
     private static final int PRODUCT_ID = 101;
+
+    public static final String LOG_TAG = ProductProvider.class.getSimpleName();
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -39,7 +43,7 @@ public class ProductProvider extends ContentProvider {
 
         Cursor cursor;
 
-        int match = uriMatcher.match(uri);
+        final int match = uriMatcher.match(uri);
         switch (match) {
             case PRODUCTS:
                 cursor = database.query(ProductEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
@@ -63,7 +67,45 @@ public class ProductProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        return null;
+        final int match = uriMatcher.match(uri);
+        switch (match) {
+            case PRODUCTS:
+                return insertProduct(uri, values);
+            default:
+                throw  new IllegalArgumentException("Insertion is not supported for \" + uri");
+
+        }
+    }
+
+    private Uri insertProduct(Uri uri, ContentValues values) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
+        if (name == null) {
+            throw new IllegalArgumentException("Product requires a name");
+        }
+        Double price = values.getAsDouble(ProductEntry.COLUMN_PRODUCT_PRICE);
+        if (price == null && price < 0) {
+            throw new IllegalArgumentException("Product requires a valid price");
+        }
+        Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        if (quantity == null && quantity < 0) {
+            throw new IllegalArgumentException("Product requires a valid quantity");
+        }
+        String supplierName = values.getAsString(ProductEntry.COLUMN_SUPPLIER_NAME);
+        if (supplierName == null) {
+            throw new IllegalArgumentException("Product requires a supplier's name");
+        }
+        String supplierPhone = values.getAsString(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+        if (supplierPhone == null && supplierPhone.length() < 4 && supplierPhone.length() > 15) {
+            throw new IllegalArgumentException("Product requires a valid supplier's phone");
+        }
+        long id = db.insert(ProductEntry.TABLE_NAME, null, values);
+        if (id == -1) {
+            Log.e(LOG_TAG, "Failed to insert row for" + uri);
+            return null;
+        }
+        return ContentUris.withAppendedId(uri, id);
     }
 
     @Override

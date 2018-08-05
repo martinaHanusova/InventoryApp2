@@ -10,4 +10,6 @@
     <string name="editor_activity_supplier_category">Supplier</string>
     <string name="supplier_name">Name</string>
     <string name="supplier_phone">Phone</string>
+    <string name="editor_insert_product_successful">Product saved</string>
+    <string name="editor_insert_product_failed">Error with saving product</string>
 </resources>
