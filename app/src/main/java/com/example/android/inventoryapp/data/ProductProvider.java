@@ -110,11 +110,72 @@ public class ProductProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        final int match = uriMatcher.match(uri);
+        switch (match) {
+            case PRODUCTS:
+                return db.delete(ProductEntry.TABLE_NAME, selection, selectionArgs);
+            case PRODUCT_ID:
+                selection = ProductEntry._ID + "=?";
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                return db.delete(ProductEntry.TABLE_NAME, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Deletion is not supported for " + uri);
+        }
         return 0;
     }
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        final int match = uriMatcher.match(uri);
+        switch (match) {
+            case PRODUCTS:
+                return updateProduct(uri, values, selection, selectionArgs);
+            case PRODUCT_ID:
+                selection = ProductEntry._ID + "=?";
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                return updateProduct(uri, values, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Update is not supported for " + uri);
+        }
+    }
+
+    private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        if (values.containsKey(ProductEntry.COLUMN_PRODUCT_NAME)) {
+            String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
+            if (name == null) {
+                throw new IllegalArgumentException("Product requires a name");
+            }
+        }
+        if (values.containsKey(ProductEntry.COLUMN_PRODUCT_PRICE)) {
+            Double price = values.getAsDouble(ProductEntry.COLUMN_PRODUCT_PRICE);
+            if (price == null && price < 0) {
+                throw new IllegalArgumentException("Product requires a valid price");
+            }
+        }
+        if (values.containsKey(ProductEntry.COLUMN_PRODUCT_QUANTITY)) {
+            Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            if (quantity == null && quantity < 0) {
+                throw new IllegalArgumentException("Product requires a valid quantity");
+            }
+        }
+        if (values.containsKey(ProductEntry.COLUMN_SUPPLIER_NAME)) {
+            String supplierName = values.getAsString(ProductEntry.COLUMN_SUPPLIER_NAME);
+            if (supplierName == null) {
+                throw new IllegalArgumentException("Product requires a supplier's name");
+            }
+        }
+        if (values.containsKey(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER)) {
+            String supplierPhone = values.getAsString(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+            if (supplierPhone == null && supplierPhone.length() < 4 && supplierPhone.length() > 15) {
+                throw new IllegalArgumentException("Product requires a valid supplier's phone");
+            }
+        }
+        if (values.size() == 0) {
+            return 0;
+        }
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        return db.update(ProductEntry.TABLE_NAME, values, selection, selectionArgs);
     }
 }
