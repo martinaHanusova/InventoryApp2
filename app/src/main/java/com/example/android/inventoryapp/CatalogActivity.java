@@ -38,12 +38,8 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     private void displayDatabaseInfo() {
-        ProductDbHelper mDbHelper = new ProductDbHelper(this);
-
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
         String[] projection = { ProductEntry.COLUMN_PRODUCT_NAME, ProductEntry.COLUMN_PRODUCT_PRICE, ProductEntry.COLUMN_PRODUCT_QUANTITY, ProductEntry.COLUMN_SUPPLIER_NAME, ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER};
-        Cursor cursor = db.query(ProductEntry.TABLE_NAME, projection, null, null, null, null, null);
+        Cursor cursor = getContentResolver().query(ProductEntry.CONTENT_URI, projection, null, null, null);
 
         TextView displayView = findViewById(R.id.text_view_books);
 
