@@ -7,14 +7,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
 import com.example.android.inventoryapp.data.ProductContract;
+import com.example.android.inventoryapp.data.ProductCursorAdapter;
 import com.example.android.inventoryapp.data.ProductDbHelper;
 
 public class CatalogActivity extends AppCompatActivity {
+
+    private ProductCursorAdapter cursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,9 @@ public class CatalogActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        ListView listView = findViewById(R.id.list_view);
+        cursorAdapter = new ProductCursorAdapter(this, null);
+        listView.setAdapter(cursorAdapter);
     }
 
     @Override
@@ -38,30 +45,8 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     private void displayDatabaseInfo() {
-        String[] projection = { ProductEntry.COLUMN_PRODUCT_NAME, ProductEntry.COLUMN_PRODUCT_PRICE, ProductEntry.COLUMN_PRODUCT_QUANTITY, ProductEntry.COLUMN_SUPPLIER_NAME, ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER};
+        String[] projection = { ProductEntry._ID, ProductEntry.COLUMN_PRODUCT_NAME, ProductEntry.COLUMN_PRODUCT_PRICE, ProductEntry.COLUMN_PRODUCT_QUANTITY};
         Cursor cursor = getContentResolver().query(ProductEntry.CONTENT_URI, projection, null, null, null);
-
-        TextView displayView = findViewById(R.id.text_view_books);
-
-        try {
-            displayView.setText(
-                    ProductEntry.COLUMN_PRODUCT_NAME + " - "
-                    + ProductEntry.COLUMN_PRODUCT_PRICE + " - "
-                    + ProductEntry.COLUMN_PRODUCT_QUANTITY + " - "
-                    + ProductEntry.COLUMN_SUPPLIER_NAME + " - "
-                    + ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER + "\n");
-
-            while (cursor.moveToNext()) {
-                String name = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME));
-                Double price = cursor.getDouble(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE));
-                int quantity = cursor.getInt(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY));
-                String supplierName = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_NAME));
-                String supplierPhone = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER));
-
-                displayView.append("\n" + name + " - " + price + getString(R.string.unit_product_price) +  " - " + quantity + " " + getString(R.string.unit_product_quantity) + " - " + supplierName + " - " + supplierPhone);
-            }
-        } finally {
-            cursor.close();
-        }
+        cursorAdapter.swapCursor(cursor);
     }
 }

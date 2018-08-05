@@ -2,4 +2,7 @@
 <resources>
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="list_item_price_font_size">24sp</dimen>
+    <dimen name="list_item_price_right_margin">32dp</dimen>
+    <dimen name="list_item_sale_button_size">50dp</dimen>
 </resources>

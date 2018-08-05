@@ -5,4 +5,7 @@
     <color name="colorAccent">#88C5CC</color>
     <color name="editorColorPrimary">#1b5299</color>
     <color name="editorColorPrimaryDark">#2D3640</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorFontPrimary">#2B3D4D</color>
+    <color name="colorFontSecondary">#AEB6BD</color>
 </resources>
