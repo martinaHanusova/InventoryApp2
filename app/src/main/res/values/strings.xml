@@ -12,4 +12,6 @@
     <string name="supplier_phone">Phone</string>
     <string name="editor_insert_product_successful">Product saved</string>
     <string name="editor_insert_product_failed">Error with saving product</string>
+    <string name="empty_view_title_text">No products here...</string>
+    <string name="empty_view_subtitle_text">Get started by adding a book</string>
 </resources>

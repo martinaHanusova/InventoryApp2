@@ -1,4 +1,4 @@
-package com.example.android.inventoryapp.data;
+package com.example.android.inventoryapp;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -25,25 +25,29 @@ public class ProductCursorAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, final Context context, final Cursor cursor) {
+    public void bindView(View view, final Context context,final Cursor cursor) {
         TextView textViewName = view.findViewById(R.id.name);
-        final TextView textViewQuantity = view.findViewById(R.id.quantity);
+        TextView textViewQuantity = view.findViewById(R.id.quantity);
         TextView textViewPrice = view.findViewById(R.id.price);
 
         String name = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME));
         int quantity = cursor.getInt(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY));
         Double price = cursor.getDouble(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE));
+        final int position = cursor.getPosition();
 
         Button buttonSale = view.findViewById(R.id.button_sale);
         buttonSale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentQuatity = cursor.getInt(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY));
-                long id = cursor.getLong(cursor.getColumnIndex(ProductEntry._ID));
-                Uri productUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
-                ContentValues values = new ContentValues();
-                values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, currentQuatity - 1);
-                context.getContentResolver().update(productUri, values, null, null);
+                cursor.moveToPosition(position);
+                int currentQuantity = cursor.getInt(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY));
+                if (currentQuantity > 0) {
+                    long id = cursor.getLong(cursor.getColumnIndex(ProductEntry._ID));
+                    Uri productUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
+                    ContentValues values = new ContentValues();
+                    values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, currentQuantity - 1);
+                    context.getContentResolver().update(productUri, values, null, null);
+                } else {return;}
             }
         });
 
