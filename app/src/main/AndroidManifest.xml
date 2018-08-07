@@ -17,20 +17,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditorActivity"
-            android:label="@string/editor_activity_title_new_book"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".CatalogActivity">
+            android:name=".DetailActivity"
+            android:label="@string/detail_activity_title_see_detail"
+            android:parentActivityName=".CatalogActivity"
+            android:theme="@style/AppTheme">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CatalogActivity" />
         </activity>
+        <activity
+            android:name=".EditorActivity"
+            android:label="@string/editor_activity_title_new_book"
+            android:parentActivityName=".DetailActivity"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DetailActivity" />
+        </activity>
         <provider
-            android:authorities="com.example.android.inventoryapp"
             android:name=".data.ProductProvider"
-            android:exported="false"
-            />
+            android:authorities="com.example.android.inventoryapp"
+            android:exported="false" />
+
     </application>
 
 </manifest>
