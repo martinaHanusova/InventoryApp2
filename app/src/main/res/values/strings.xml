@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">InventoryApp</string>
     <string name="editor_activity_title_new_book">Add a Book</string>
+    <string name="editor_activity_title_edit_book">Edit a Book</string>
     <string name="detail_activity_title_see_detail">Product detail</string>
     <string name="editor_activity_product_category">Product</string>
     <string name="product_price">Price</string>
@@ -15,4 +16,18 @@
     <string name="editor_insert_product_failed">Error with saving product</string>
     <string name="empty_view_title_text">No products here...</string>
     <string name="empty_view_subtitle_text">Get started by adding a book</string>
+    <string name="action_delete_all_entries">Delete All Products</string>
+    <string name="action_delete">Delete</string>
+    <string name="delete_all_dialog_msg">Delete all products?</string>
+    <string name="delete_dialog_msg">Delete this product?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="editor_delete_product_successful">Product deleted</string>
+    <string name="editor_delete_product_failed">Error with deleting product</string>
+    <string name="editor_insert_product_required_fields">Please fill out all required fields</string>
+    <string name="editor_update_product_successful">Product updated</string>
+    <string name="editor_update_product_failed">Error with updating product</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
 </resources>

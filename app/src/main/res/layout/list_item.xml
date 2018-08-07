@@ -21,7 +21,7 @@
         tools:text="Product name"/>
 
     <TextView
-        android:id="@+id/quantity"
+        android:id="@+id/quantity_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
@@ -35,7 +35,8 @@
         android:layout_height="@dimen/list_item_sale_button_size"
         android:background="@drawable/roundedbutton"
         android:textColor="@color/colorWhite"
-        android:text="Sale"/>
+        android:text="Sale"
+        android:focusable="false"/>
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"

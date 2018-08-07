@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
-import com.example.android.inventoryapp.R;
 
 public class ProductCursorAdapter extends CursorAdapter {
     public ProductCursorAdapter(Context context, Cursor cursor) {
@@ -27,7 +26,7 @@ public class ProductCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, final Context context,final Cursor cursor) {
         TextView textViewName = view.findViewById(R.id.name);
-        TextView textViewQuantity = view.findViewById(R.id.quantity);
+        TextView textViewQuantity = view.findViewById(R.id.quantity_textview);
         TextView textViewPrice = view.findViewById(R.id.price);
 
         String name = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME));
