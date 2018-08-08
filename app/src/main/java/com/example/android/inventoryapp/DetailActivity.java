@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     private TextView supplierPhoneTextView;
 
-    private Button callSupplierButton;
+    private ImageButton callSupplierButton;
 
     private Button decreaseQuantityButton;
 
@@ -161,7 +162,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             quantityTextView.setText(String.valueOf(quantity));
 
             Double price = cursor.getDouble(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE));
-            priceTextView.setText(String.valueOf(price));
+            priceTextView.setText("$" + String.valueOf(price));
 
             String supplierName = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_NAME));
             supplierNameTextView.setText(supplierName);

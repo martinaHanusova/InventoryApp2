@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
@@ -34,7 +35,7 @@ public class ProductCursorAdapter extends CursorAdapter {
         Double price = cursor.getDouble(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE));
         final int position = cursor.getPosition();
 
-        Button buttonSale = view.findViewById(R.id.button_sale);
+        ImageButton buttonSale = view.findViewById(R.id.button_sale);
         buttonSale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
