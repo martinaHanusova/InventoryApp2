@@ -263,6 +263,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 Toast.makeText(this, getString(R.string.editor_delete_product_failed), Toast.LENGTH_SHORT).show();
             }
         }
+        setResult(RESULT_OK);
         finish();
     }
 }

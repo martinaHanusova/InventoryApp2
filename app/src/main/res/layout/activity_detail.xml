@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_margin"
     android:orientation="vertical"
     tools:context=".DetailActivity">
     <TextView
@@ -12,48 +13,42 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimaryDark"
         android:gravity="center"
-        android:textSize="34sp"
+        android:textSize="@dimen/detail_main_label_font_size"
+        android:layout_marginBottom="@dimen/detail_main_label_margin_bottom"
         tools:text="Eragon"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/book"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/quantity_price_layout_margin">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
             <TextView
                 android:id="@+id/quantity_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                style="@style/label_detail"
                 android:text="Quantity"/>
             <TextView
                 android:id="@+id/quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_below="@+id/quantity_label"
-                android:layout_centerInParent="true"
-                android:textSize="34sp"
-                tools:text="30"/>
+                tools:text="30"
+                style="@style/value_quantity_price"/>
             <Button
                 android:id="@+id/decrease_quantity_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
                 android:layout_toLeftOf="@id/quantity"
-                android:layout_below="@+id/quantity_label"
-                android:background="@color/colorPrimary"
-                android:layout_margin="8dp"
+                style="@style/button_increase_decrease"
                 android:text="-"/>
             <Button
                 android:id="@+id/increase_quantity_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
                 android:layout_toRightOf="@id/quantity"
-                android:layout_below="@+id/quantity_label"
-                android:background="@color/colorPrimary"
-                android:layout_margin="8dp"
-                android:text="+"/>
+                android:text="+"
+                style="@style/button_increase_decrease" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
@@ -61,17 +56,12 @@
             android:layout_weight="1">
             <TextView
                 android:id="@+id/price_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Price"/>
+                android:text="Price"
+                style="@style/label_detail" />
             <TextView
                 android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_below="@+id/price_label"
-                android:layout_centerInParent="true"
-                android:textSize="34sp"
+                style="@style/value_quantity_price"
                 tools:text="30"/>
         </RelativeLayout>
     </LinearLayout>
@@ -80,8 +70,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="Supplier"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginBottom="@dimen/detail_secondary_label_margin_bottom"
+        android:textSize="@dimen/detail_secondary_label_font_size"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -90,6 +81,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textAllCaps="true"
+            android:textColor="@color/colorFontPrimary"
             android:text="Name:"/>
         <TextView
             android:id="@+id/supplier_name"
@@ -104,20 +97,24 @@
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_call_size"
             android:layout_weight="1"
+            android:textAllCaps="true"
+            android:textColor="@color/colorFontPrimary"
             android:text="Phone:"/>
         <TextView
             android:id="@+id/supplier_phone"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_call_size"
             android:layout_weight="4"
+            android:gravity="center_vertical"
             tools:text="777 888 487"/>
-        <Button
+        <ImageButton
             android:id="@+id/button_call"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Call"/>
+            android:layout_width="@dimen/button_call_size"
+            android:layout_height="@dimen/button_call_size"
+            android:background="@drawable/button_rounded"
+            android:textColor="@color/colorWhite"
+            android:src="@drawable/ic_phone"/>
     </LinearLayout>
 </LinearLayout>

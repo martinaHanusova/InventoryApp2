@@ -29,18 +29,19 @@
         android:textColor="@color/colorFontSecondary"
         tools:text="20 in stock"/>
     </LinearLayout>
-    <Button
+    <ImageButton
         android:id="@+id/button_sale"
         android:layout_width="@dimen/list_item_sale_button_size"
         android:layout_height="@dimen/list_item_sale_button_size"
-        android:background="@drawable/roundedbutton"
+        android:background="@drawable/button_rounded"
         android:textColor="@color/colorWhite"
-        android:text="Sale"
+        android:src="@drawable/ic_basket"
         android:focusable="false"/>
     <TextView
         android:id="@+id/price"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:layout_marginLeft="@dimen/list_item_price_right_margin"
         android:gravity="center_vertical"
         android:textSize="@dimen/list_item_price_font_size"

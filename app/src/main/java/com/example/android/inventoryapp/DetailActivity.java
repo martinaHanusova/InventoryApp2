@@ -110,11 +110,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==2){
+        if(resultCode==RESULT_OK){
             finish();
         }
     }
-    
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,7 +128,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             case R.id.action_edit:
                 Intent intent = new Intent(DetailActivity.this, EditorActivity.class);
                 intent.setData(currentProductUri);
-                startActivity(intent);
+                startActivityForResult(intent, 2);
                 return true;
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
